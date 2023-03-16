@@ -1,0 +1,136 @@
+https://programmers.co.kr/(프로그래머스 코딩테스트해보는 웹)
+
+ctrl+shift : 단축기
+인코딩바꾸는법
+class -> properties에들어가서 ms949입력하게되면 한글 지원
+
+변수사용시 초기화를 반드시 시켜줘야한다(생성자를이용해 초기화시킬수있다)
+
+생성자
+- 용도 : 객체가 생성될때 자동으로 호출(new 명령어를 만났을때) 인스턴스변수(클래스내부변수) 초기화
+->초기화하는 이유 객체를 쓰기전에 초기화
+- 특징 : 리턴값이 없다(리턴값이 없지만 정의할때 리턴값이 없다는 void를 사용하지않는다), 클래스명과 생성자명이 같다, 생성자는 중복정의 될수 없다(오버로드되지않는다, 
+하지만 오버로딩은 가능하다) ,생성자를 정의하지 않았을때 컴파일러가 제공하는 디폴트생성자호출,  
+
+- 디폴트 생성자
+자바의 모든 클래스는 최소한 한개의 생성자는 가지고있다
+전달인자가 없고, 메소드 몸체 부분이 비어있는 형태이다 ex) public MyDate(){}
+사용자가 생성자를 하나라도 만들게되면 컴파이러는 디폴트 생성자를 생성하지 않는다
+
+-생성자 오버로딩overloading(메소드의 이름이 같고, 매겨변수의 개수나 타입을 다르게 정의할때, 리턴값만 다른것은 오버로딩할수없다,접근제어자를 자유롭게
+지정가능하며 접근제어자만 다르게하여 오버로딩 가능하지않다)
+
+*오버라이딩overriding(부모클래스로부터 상속받은 메소드를 자식 클래스에서 재정의
+메소드 오버로딩처럼 인수형식이 다른 생성자를 더정의할수있다, 상속받은 메소드를 그대로사용가능하지만
+자식클래스의 상황에 맞게 변경해야하는경우 오버라이딩해야할수 있다)
+오버라이딩 하고자하는 메소드의 이름 매개변수 리턴값이 모두 같아야한다
+Overriding, Overloading 비교표 https://hyoje420.tistory.com/14
+
+ex)-------------------------------------------------------------------
+        class MyDate
+        {
+          private  int  year;
+          private  int  month;
+ 
+          public MyDate()         => 생성자, 클래스명과 동일
+          {
+            year    = 2006;
+            month = 4;
+           }
+ 
+          public MyDate( int new_year, int  new_month)     => 생성자 오버로딩
+          {
+             year    = new_year;
+             month = new_month;
+           }
+ 
+                                       
+           public  void print()
+          {
+             System.out.println(year + "/" + month);
+           }
+      }
+   --------------------------------------------------------------------------
+ 
+            public class MyDateMain 
+           {
+              public  static void  main(String[] args)
+              {
+                  MyDate d=new MyDate();                   => 생성자 호출
+                  d.print();
+ 
+                  MyDate d1=new MyDate(2007,12);       => 생성자 호출
+                  d1.print();
+                }
+             }
+
+-this 생성자
+자신을 참조하는 참조변수
+class 메소드내에서만 사용가능
+
+ ex) 위의 예제에서
+ 
+       public MyDate( int new_year, int  new_month)     => 생성자 오버로딩
+       {
+          year    = new_year;
+          month = new_month;
+        }
+ 
+        전달인자 부분이 객체 속성과 이름이 동일할 경우 
+        public MyDate( int  year, int   month)     => 생성자 오버로딩
+        {
+           this.year    = year;
+           this.month = month;
+         }
+ 
+     this를 사용하여 구분해야한다. this.year은 class MyDate의 속성인 private year부분을 가르킨다.
+
+-this()생성자
+같은 클래스내의 다른 생성자를 호출할때 사용
+ 
+ ex) 위의 예제와 비교해서 생성자를 보다 간략하게 정의할수 있다.
+     -------------------------------------------------------------------
+ 
+       class MyDate
+       {
+          private  int  year;
+          private  int  month;
+ 
+          public MyDate(){
+          year   = 2008;
+          month = 6;
+        }
+ 
+   publicMyDate( int new_year)    
+   {
+       this();      -> { 다음에 위치해야한다. / 위의 year,month를 불러온다.
+       year = new_year;                                                                 
+    }
+ 
+   publicMyDate( int new_year, int new_month)    
+   {
+      this(new_year);     ->위의 생성자(int new_year)를 불러온다.
+      month = new_month;
+    }
+
+    public  void print()
+    {
+        System.out.println(year + "/" + month);
+     }
+ 
+   }
+ ------------------------------------------------------------------
+ 
+      public class MyDateMain
+     {
+        public  static void  main(String[] args)
+        {
+           MyDate d=new MyDate();              => 생성자 호출
+           d.print();                                   => 2008/6 출력
+           MyDate d1=new MyDate(2009);       => 생성자 호출
+           d1.print();                                  => 2009/6 출력
+ 
+           MyDate d2=new MyDate(2010,9)      => 생성자 호출
+           d2.print();                                  => 2010/9 출력
+          }
+     }
