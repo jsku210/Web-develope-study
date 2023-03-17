@@ -1,0 +1,43 @@
+웹개발전 실행환경 편집
+1.Java Archive Downloads - Java SE 8 (oracle.com) 에서 jdk1.8을 설치
+환경변수 설정 변수이름 시스템변수에 JAVA_HOME입력후 경로는 jdk설치경로,
+시스템변수중 path를 더블클릭하여 새로만들기하여 %JAVA_HOME%\bin을 입력하여 맨위로 올린다
+윈도우 10에서 'javac은 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는 배치 파일이 아닙니다' 해결방법 (tistory.com) 
+이후 명령프롬프트창cmd에서 javac를입력하면 실행됨을 알수있다→ 어느곳에서나 java, javac접근가능하다
+
+기본적으로 JRE가아닌 JDK를 실행하기위한 방법 : 이클립스가 설치된 폴더내 eclipse.ini 파일을
+텍스트 편집기 프로그램으로 상단에 
+-vm
+C:/Program Files/Java/jdk1.8.0_171/bin/javaw.exe //JDK설치 경로내에 bin폴더와 javaw.exe파일로 지정//
+
+
+2.운영체제에따른 인코딩방식 최근에는 주로 ‘UTF-8’인코딩을 이용
+하지만 Windows인경우에는 MS949방식이 기본으로 설정되어있어 개발시 작성의 어려움을 겪을수있다
+→웹에서 가져왔을때 : 해당패키지,클래스를 선택후 마우스오른쪽클리 properties에들어가서 ms949입력하게되면 한글 지원
+Window> Preferences > General > Workspace에서 확인/변경 가능
+
+
+3 STS(Sprong Tool Suite)설정
+스프링 프레임 워크 개발시 도움을 받을수 있는 STS를사용하는것이 편리
+기존의 Eclipse에 STS플러그인을 추가하는방식으로 사용가능
+help → eclipse maketplace → serach항목에 sts검색하여 spring tools 4찾아 설치
+ [eclipse] 이클립스 설치, STS(Spring Tools 4) 설치 (tistory.com) 
+
+
+
+재식작후 화면 오른쪽상단 open perspective를 클리하면 Spring 항목이 추가된것을 알수있다
+
+
+
+
+
+
+
+
+4 Tomcat 9(8)서버 설정
+STS로 생성하는 프로젝트의 구동은 Tomcat을 이용해서 진행한다
+tomcat.apache.org 사이트를통해서 Tomcat 9.0버전을 이용(JDK 1.8이상을 사용하기위해서)
+//Tomcat을 사용할때는 tomcat.apache.org/whichversion.html문서를 통해 자신의 환경에 맞는 버전이용
+
+->적적한 버전 다운후 압축해제
+>Eclipse에서 Window> Preferences 메뉴의 Sever항목을> Add버튼을 통해 Apache Tomcat 9를 선택후 → Tomcat이 설치된 경로를 지정
